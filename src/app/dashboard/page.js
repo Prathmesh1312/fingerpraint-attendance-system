@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes'
 import { redirect } from "next/navigation";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 // import addData from './adddata';
-import getDocument from './getdata';
+import getDocument from '../api/docs/getdata';
 
 export default  function Dashboard() {
   const { setTheme } = useTheme()

@@ -1,3 +1,5 @@
+// Get data inside of specific document from a collection with its dcument id and collection name 
+
 import firebase_app from "@/config/firebase";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
@@ -17,3 +19,11 @@ export default async function getDocument(collection,id) {
   return { result };
 }
 
+
+// ------------------------GET Data Open--------------------\\
+// 'use client'
+
+// const  getDatatofirestore = await getDocument('students','4OoS9XeUFnWDQnq5ODJ9')
+// console.log(getDatatofirestore)
+
+// ------------------------GET Data Close--------------------\\
