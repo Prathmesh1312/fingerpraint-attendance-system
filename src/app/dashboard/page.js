@@ -18,26 +18,6 @@ export default  function Dashboard() {
 
   if (isLoading) return <div>Loading...</div>;
 
-// ------------------------ADD Data Open--------------------\\
-
-// const data =
-// {
-//   id:7,
-//   Grade:'11th',
-// }
-
-// const addDatatofirestore = addData('grade','11th', data)
-// console.log(addDatatofirestore)
-
-// ------------------------ADD Data Close--------------------\\
-
-// ------------------------GET Data Open--------------------\\
-
-const getDatatofirestore =  getDocument('grade','5th')
-console.log(getDatatofirestore)
-
-// ------------------------GET Data Close--------------------\\
-
   return isAuthenticated ? (
     <div >
       Admin Hi from dashboard !!!!!!!! 

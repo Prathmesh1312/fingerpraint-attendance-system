@@ -9,13 +9,13 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 
 function AddNewStudent() {
   const [open, setOpen] = useState(false);
+  const [grades, setGrades] = useState([]);
 
   const {
     register,
@@ -30,13 +30,15 @@ function AddNewStudent() {
 
   const GetAllGradesList=()=>{
     GlobalAPI.GetAllGrades().then(res=>{
-      console.log(res.data)
+      const a = res.data
+      a.sort((a, b) => a.id - b.id)
+      console.log(a)
+      setGrades(a)
     })
   }
 
   const onSubmit = (data) => console.log(data);
 
-  // console.log(watch("name"))
 
   return (
     <div>
@@ -68,13 +70,15 @@ function AddNewStudent() {
                     {...register("grade", { required: true })}
                   >
                     <option>Select Grade</option>
-                    <option value={"4th"}>4th</option>
-                    <option value={"5th"}>5th</option>
+                    {grades.map((item, index)=>(
+                      <option key={index} value={item.Grade}>{item.Grade}</option>
+                    ))}
+                    {/* <option value={"5th"}>5th</option>
                     <option value={"6th"}>6th</option>
                     <option value={"7th"}>7th</option>
                     <option value={"8th"}>8th</option>
                     <option value={"9th"}>9th</option>
-                    <option value={"10th"}>10th</option>
+                    <option value={"10th"}>10th</option> */}
                   </select>
                 </div>
                 <div className="flex justify-between">
