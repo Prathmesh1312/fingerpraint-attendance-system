@@ -12,15 +12,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { toast } from "sonner";
 
-function AddNewStudent() {
+function AddNewStudent({refershData}) {
   const [open, setOpen] = useState(false);
   const [grades, setGrades] = useState([]);
 
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -32,12 +33,22 @@ function AddNewStudent() {
     GlobalAPI.GetAllGrades().then(res=>{
       const a = res.data
       a.sort((a, b) => a.id - b.id)
-      console.log(a)
       setGrades(a)
     })
   }
 
-  const onSubmit = (data) => console.log(data);
+  const  onSubmit = async(data) => {
+    if (data){
+      setOpen(false);
+      
+    }
+    await GlobalAPI.CreateStudent(data).then(res=>{
+    console.log(res.data)
+    refershData()
+    reset()
+    toast('New Student Added !')
+    })
+  };
 
 
   return (
@@ -50,42 +61,28 @@ function AddNewStudent() {
               <div className="mb-3">Add New Student</div>
             </DialogTitle>
             <DialogDescription>
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex gap-y-5 flex-col"
-              >
+              <form onSubmit={handleSubmit(onSubmit)} className="flex gap-y-5 flex-col" >
+                <div className="flex flex-col">
+                  <label className="mb-3"> Student ID </label>
+                  <div className="flex flex-row gap-3">
+                    <Input className="mb-3" type="text" placeholder="ID : yfPKqZjui7ySxSstn5vt" {...register("id", { required: true })} />
+                    <Button variant='outline'>Get ID</Button>
+                  </div>
+                </div>
                 <div className="flex flex-col">
                   <label className="mb-3">Student Full Name</label>
-                  <Input
-                    className="mb-3"
-                    type="text"
-                    placeholder="Name : ex. jhon doe"
-                    {...register("name", { required: true })}
-                  />
+                  <Input className="mb-3" type="text" placeholder="Name : ex. jhon doe" {...register("name", { required: true })} />
                 </div>
                 <div className="flex flex-col">
                   <label className="mb-3">Select Grade</label>
-                  <select
-                    className="p-3 rounded-lg mb-3"
-                    {...register("grade", { required: true })}
-                  >
+                  <select className="p-3 rounded-lg mb-3" {...register("grade", { required: true })} >
                     <option>Select Grade</option>
-                    {grades.map((item, index)=>(
-                      <option key={index} value={item.Grade}>{item.Grade}</option>
-                    ))}
-                    {/* <option value={"5th"}>5th</option>
-                    <option value={"6th"}>6th</option>
-                    <option value={"7th"}>7th</option>
-                    <option value={"8th"}>8th</option>
-                    <option value={"9th"}>9th</option>
-                    <option value={"10th"}>10th</option> */}
+                    {grades.map((item, index)=>( <option key={index} value={item.Grade}>{item.Grade}</option> ))}
                   </select>
                 </div>
                 <div className="flex justify-between">
-                  <Button onClick={() => setOpen(false)} variant="outline">
-                    Cancel
-                  </Button>
-                  <Button type="submit">Save</Button>
+                  <Button type='button' onClick={() => setOpen(false)} variant="outline"> Cancel </Button>
+                  <Button type="submit"> Save </Button>
                 </div>
               </form>
             </DialogDescription>

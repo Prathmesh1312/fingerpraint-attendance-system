@@ -12,6 +12,5 @@ export async function GET() {
   querySnapshot.forEach((doc) => {
       tempDoc.push({ id: doc.id, ...doc.data() })
   })
-  console.log(tempDoc)
   return NextResponse.json(tempDoc)
 }
