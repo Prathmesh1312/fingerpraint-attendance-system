@@ -29,7 +29,7 @@ export async function attendancefilter(month, grade) {
   let Data = [];
   for (i = 0; i < tempDoc.length; i++) {
     let X = {
-      stu_id: tempDoc[i].student.id,
+      id: tempDoc[i].student.id,
       name: tempDoc[i].student.name,
       grade: tempDoc[i].student.grade,
       month: tempDoc[i].month,

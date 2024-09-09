@@ -17,7 +17,6 @@ function page() {
     const month = moment(selectedMonth).format('MMM')
     GlobalAPI.GetAttandanceList(selectedGrade,month).then((res)=>{
       setattendanceList(res.data)
-      console.log(res.data)
     })
   } 
 
