@@ -11,9 +11,6 @@ export default function Home() {
     redirect('/api/auth/login?post_login_redirect_url=/dashboard')
   },[])
 
-
-
-
   return (
     <>
     Hi 

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { GraduationCap, Hand, LayoutIcon, Settings } from "lucide-react";
@@ -8,7 +9,6 @@ import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import userpic from "../../../../public/user.svg";
 import logo from "../../../../public/logo.svg";
 import { usePathname } from "next/navigation";
-import { useMediaQuery } from "@uidotdev/usehooks";
 
 
 function SideNav() {
@@ -67,13 +67,21 @@ function SideNav() {
       <hr className="my-5"></hr>
 
       <div className="flex gap-2 items-center bottom-5 fixed p-4">
-        <img
+      {pic?(
+          <img
           src={pic}
           width={35}
           height={35}
           alt="user-img"
-          className="rounded-full"
-        />
+          className="rounded-full "
+        />):(
+          <Image
+          src={userpic}
+          width={35}
+          height={35}
+          alt="user-img"
+          className="rounded-full "/>
+        )}
         <div>
           <h2 className="text-sm font-bold">
             {user?.given_name} {user?.family_name}

@@ -9,11 +9,14 @@ import React, { useState } from 'react'
 import AttendanceGrid from './_components/AttendanceGrid'
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { redirect } from "next/navigation";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import { CalendarSearch } from 'lucide-react'
 
 function page() {
   const [selectedMonth, setselectedMonth] = useState();
   const [selectedGrade, setSelectedGrade] = useState();
   const [attendanceList, setattendanceList] = useState();
+  const isDesktop = useMediaQuery("(min-width:768px)");
 
   const onSearchHandler=() => {
     const month = moment(selectedMonth).format('MMM')
@@ -27,9 +30,9 @@ function page() {
   if (isLoading) return <div>Loading...</div>;
 
   return isAuthenticated ? (
-    <div className='p-7'>
+    isDesktop ? (
+      <div className='p-7'>
         <h2 className='font-bold text-2xl flex justify-between items-center'>Attendance</h2>
-        {/* Search Option */}
             <div className='flex gap-5 my-5 border rounded-lg inset-0 p-5 shadow-sm'>
               <div className='flex gap-2 items-center'>
                 <label>Select Month :</label>
@@ -41,9 +44,23 @@ function page() {
               </div>
               <Button onClick={()=>{onSearchHandler()}} className='p-6 rounded-lg border '>Search</Button>
             </div>
-        {/* Student Attendance Grid */}
         <AttendanceGrid attendanceList={attendanceList} selectedMonth={selectedMonth} />
     </div>
+    ):(
+      <div className='p-7'>
+        <h2 className='font-bold text-2xl flex justify-between items-center'>Attendance</h2>
+            <div className='flex gap-5 my-5 border rounded-lg inset-0 p-5 shadow-sm items-center justify-center'>
+              <div className='flex gap-2 items-center'>
+                <MonthSelect selectedMonth={(value)=>{setselectedMonth(value);}}/>
+              </div>
+              <div className='flex gap-2 items-center'>
+                <GradeSelect selectedGrade={(value)=>{setSelectedGrade(value);}}/>
+              </div>
+              <Button onClick={()=>{onSearchHandler()}} className='p-2 rounded-lg border '><CalendarSearch/></Button>
+            </div>
+        <AttendanceGrid attendanceList={attendanceList} selectedMonth={selectedMonth} isDesktop={isDesktop}/>
+    </div>
+    )
   ) : (
     redirect('/api/auth/login?post_login_redirect_url=/dashboard/students')
   );

@@ -1,24 +1,30 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 "use-client";
 import { ChevronLeft } from "lucide-react";
 import React from "react";
+import userpic from '../../../../public/user.svg'
+import SideNavMobile from "./SideNavMobile";
+import Image from "next/image";
 
-function Header({ name, pic }) {
-
-
+function Header({ pic }) {
+  console.log(pic)
   return (
-    <div className="p-5 shadow-sm border flex justify-between">
-      <div className=" text-xl">Welcome, {name}</div>
-      <div >
-        <div className=" m-auto md:hidden">
-        <img
+    <div className="p-2 shadow-sm border flex items-center justify-between m-auto">
+        <SideNavMobile />
+        {pic?(
+          <img
           src={pic}
           width={35}
           height={35}
-          alt="user-img"
-          className="rounded-full"
-        />
-        </div>
-      </div>
+          className="rounded-full "
+        />):(
+          <Image
+          src={userpic}
+          width={35}
+          height={35}
+          className="rounded-full "/>
+        )}
     </div>
   );
 }

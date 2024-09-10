@@ -60,14 +60,13 @@ function StudentListTable({studentList, refreshData}) {
   }
   const [colDef, setColDef] = useState([
     // { field: "id", filter: true, flex: 1 },
-    { field: "name", filter: true, },
+    { field: "name", filter: true, flex:1},
     { field: "grade", filter: true, flex: 0.5 },
-    { field: "action", cellRenderer: CustumButton, flex: 0.5 },
+    { field: "action", cellRenderer: CustumButton,width:80 },
   ]);
 
   useEffect(() => {
     studentList && setRowData(studentList.tempDoc);
-    // console.log(studentList.tempDoc)
   }, [studentList]);
 
 
@@ -90,11 +89,7 @@ function StudentListTable({studentList, refreshData}) {
       <AgGridReact
         rowData={rowData}
         columnDefs={colDef}
-        quickFilterText={searchInput}
-        pagination={pagination}
-        paginationPageSize={paginationPageSize}
-        paginationPageSizeSelector={paginationPageSizeSelector}
-        
+        quickFilterText={searchInput}       
       />
     </div>
   );

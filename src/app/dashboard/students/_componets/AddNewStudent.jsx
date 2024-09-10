@@ -54,7 +54,7 @@ function AddNewStudent({refershData}) {
     <div>
       <Button onClick={() => setOpen(true)}>+ Add New Student</Button>
       <Dialog open={open}>
-        <DialogContent>
+        <DialogContent hideclose>
           <DialogHeader>
             <DialogTitle>
               <div className="mb-3">Add New Student</div>

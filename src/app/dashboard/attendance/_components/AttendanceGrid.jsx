@@ -7,11 +7,7 @@ import "ag-grid-community/styles/ag-theme-quartz.css";
 import moment from "moment";      
 import Present from "./Present";
 
-const pagination = true;
-const paginationPageSize = 20;
-const paginationPageSizeSelector = [25, 50, 100];
-
-function AttendanceGrid({ attendanceList,selectedMonth }) {
+function AttendanceGrid({ attendanceList,selectedMonth,isDesktop }) {
   const [toatalpresentcount, setTotalPresentCount] = useState()
   const [rowData, setRowData] = useState([]);
   const [colDef, setColDef] = useState([
@@ -49,6 +45,7 @@ function AttendanceGrid({ attendanceList,selectedMonth }) {
     bigtemp.push({day:i,presentStudnets:temp.filter(x => x==i).length})
   }
   setTotalPresentCount(bigtemp)
+  console.log(isDesktop )
 }
 },[attendanceList]);
 
@@ -64,17 +61,21 @@ function isPresent(obj,List,date){
   })
 }
 
-  return (
+  return isDesktop ? (
     <div className="ag-theme-quartz-dark my-8" style={{ height: 550 }}>
       <AgGridReact
         rowData={rowData}
         columnDefs={colDef}
-        pagination={pagination}
-        paginationPageSize={paginationPageSize}
-        paginationPageSizeSelector={paginationPageSizeSelector}
+        pagination={true}
       />
     </div>
-  );
+  ):(
+    <div className="ag-theme-quartz-dark my-8" style={{ height: 500 }}>
+      <AgGridReact
+        rowData={rowData}
+        columnDefs={colDef}      />
+    </div>
+  )
 }
 
 export default AttendanceGrid;
