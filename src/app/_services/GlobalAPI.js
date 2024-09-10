@@ -14,6 +14,6 @@ export default {
     CreateStudent,
     GetaAllStudents,
     DeleteStudentRecord,
-    GetAttandanceList
+    GetAttandanceList,
 }
  

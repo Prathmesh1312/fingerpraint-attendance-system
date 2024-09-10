@@ -59,23 +59,23 @@ function StudentListTable({studentList, refreshData}) {
     })
   }
   const [colDef, setColDef] = useState([
-    { field: "id", filter: true, flex: 1 },
-    { field: "name", filter: true, flex: 2 },
+    // { field: "id", filter: true, flex: 1 },
+    { field: "name", filter: true, },
     { field: "grade", filter: true, flex: 0.5 },
     { field: "action", cellRenderer: CustumButton, flex: 0.5 },
   ]);
 
   useEffect(() => {
     studentList && setRowData(studentList.tempDoc);
-    console.log(studentList.tempDoc)
+    // console.log(studentList.tempDoc)
   }, [studentList]);
 
 
 
   return (
     <div
-      className="ag-theme-quartz-dark my-8" // applying the Data Grid theme
-      style={{ height: 500 }} // the Data Grid will fill the size of the parent container
+      className="ag-theme-quartz-dark my-8" 
+      style={{ height: 500 }} 
     >
       <div className="p-2 rounded-xl border shadow-sm flex gap-2 mb-4 max-w-sm text-white">
         <Search />

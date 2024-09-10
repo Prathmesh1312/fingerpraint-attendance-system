@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button'
 import moment from 'moment'
 import React, { useState } from 'react'
 import AttendanceGrid from './_components/AttendanceGrid'
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { redirect } from "next/navigation";
 
 function page() {
   const [selectedMonth, setselectedMonth] = useState();
@@ -20,8 +22,11 @@ function page() {
     })
   } 
 
+  const { isAuthenticated, isLoading } = useKindeBrowserClient();
 
-  return (
+  if (isLoading) return <div>Loading...</div>;
+
+  return isAuthenticated ? (
     <div className='p-7'>
         <h2 className='font-bold text-2xl flex justify-between items-center'>Attendance</h2>
         {/* Search Option */}
@@ -39,7 +44,9 @@ function page() {
         {/* Student Attendance Grid */}
         <AttendanceGrid attendanceList={attendanceList} selectedMonth={selectedMonth} />
     </div>
-  )
+  ) : (
+    redirect('/api/auth/login?post_login_redirect_url=/dashboard/students')
+  );
 }
 
 export default page

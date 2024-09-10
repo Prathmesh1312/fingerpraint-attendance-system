@@ -37,6 +37,6 @@ export async function attendancefilter(month, grade) {
     };
     Data.push(X);
   }
-  console.log(Data)
+  // console.log(Data)
   return Data 
 }

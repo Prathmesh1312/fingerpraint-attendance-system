@@ -43,7 +43,6 @@ function AddNewStudent({refershData}) {
       
     }
     await GlobalAPI.CreateStudent(data).then(res=>{
-    console.log(res.data)
     refershData()
     reset()
     toast('New Student Added !')

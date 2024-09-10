@@ -106,23 +106,29 @@ const db = getFirestore(app)
 //   return NextResponse.json(result)
 // }
 
-export async function GET() {
-  const grade = '4th'
-  const month = 'Sep'
-  const temp = []
-  const temp1 = []
-  let tempDoc = []
-  const snap = await getDocs(query(collection(db, 'students'), where("grade",'==',grade)))
-  snap.forEach((id)=>{
-    temp.push(id.id)
-    temp1.push(id.data())
-  })
-  let i 
-  for(i=0;i<=temp.length;i++){
-    const res = await getDoc(doc(db, `students/${temp[i]}/attendance/${month}`))
-    tempDoc.push({id:res.id, ...res.data()})
-  }
-  tempDoc.unshift(temp1)
-  // console.log(tempDoc[3][0]['id'])
-  return NextResponse.json(tempDoc)
+// export async function GET() {
+//   const grade = '4th'
+//   const month = 'Sep'
+//   const temp = []
+//   const temp1 = []
+//   let tempDoc = []
+//   const snap = await getDocs(query(collection(db, 'students'), where("grade",'==',grade)))
+//   snap.forEach((id)=>{
+//     temp.push(id.id)
+//     temp1.push(id.data())
+//   })
+//   let i 
+//   for(i=0;i<=temp.length;i++){
+//     const res = await getDoc(doc(db, `students/${temp[i]}/attendance/${month}`))
+//     tempDoc.push({id:res.id, ...res.data()})
+//   }
+//   tempDoc.unshift(temp1)
+//   // console.log(tempDoc[3][0]['id'])
+//   return NextResponse.json(tempDoc)
+// }
+
+
+export async function POST(data) {
+  const data1 = await data.json() 
+  return NextResponse.json(data1)
 }

@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import AddNewStudent from "./_componets/AddNewStudent";
 import GlobalAPI from "@/app/_services/GlobalAPI";
 import StudentListTable from "./_componets/StudentListTable";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { redirect } from "next/navigation";
 
 
 function page() {
@@ -20,8 +22,11 @@ function page() {
       setStudentList(res.data)
     })
   }
+  const { isAuthenticated, isLoading } = useKindeBrowserClient();
 
-  return (
+  if (isLoading) return <div>Loading...</div>;
+
+  return isAuthenticated ? (
     <>
       <div className="p-7">
         <h2 className="font-bold text-2xl flex justify-between items-center">
@@ -31,6 +36,8 @@ function page() {
         <StudentListTable studentList={studentList} refreshData={GetAllStudentsList}/>
       </div>
     </>
+  ) : (
+    redirect('/api/auth/login?post_login_redirect_url=/dashboard/students')
   );
 }
 

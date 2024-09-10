@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  GraduationCap,
-  Hand,
-  LayoutIcon,
-  Settings,
-  UserCheckIcon,
-} from "lucide-react";
+import { GraduationCap, Hand, LayoutIcon, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
@@ -14,10 +8,10 @@ import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import userpic from "../../../../public/user.svg";
 import logo from "../../../../public/logo.svg";
 import { usePathname } from "next/navigation";
+import { useMediaQuery } from "@uidotdev/usehooks";
+
 
 function SideNav() {
-  const { user } = useKindeBrowserClient();
-  const path = usePathname();
   const menuLists = [
     {
       id: 1,
@@ -44,11 +38,11 @@ function SideNav() {
       path: "/dashboard/settings",
     },
   ];
+  const { user } = useKindeBrowserClient();
+  const path = usePathname();
+  const pic = user?.picture;
 
-  useEffect(() => {
-    console.log(path);
-  }, [path]);
-
+  useEffect(() => {}, [path]);
   return (
     <div className="border shadow-md h-screen p-5">
       <div className="flex gap-3 text-sm items-center">
@@ -73,8 +67,8 @@ function SideNav() {
       <hr className="my-5"></hr>
 
       <div className="flex gap-2 items-center bottom-5 fixed p-4">
-        <Image
-          src={userpic}
+        <img
+          src={pic}
           width={35}
           height={35}
           alt="user-img"

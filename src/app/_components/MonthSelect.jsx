@@ -24,7 +24,7 @@ function MonthSelect({selectedMonth}) {
       <Popover>
         <PopoverTrigger>
           <div className="flex gap-2 items-center border p-3 rounded-lg bg-primary font-bold ">
-            <CalendarDays className="h-5 w-5" />
+            <CalendarDays  />
             {moment(month).format("MMM yyyy")}
           </div>
         </PopoverTrigger>
